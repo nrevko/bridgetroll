@@ -1,0 +1,23 @@
+<h1>My Incredible Powers</h1>
+<%= form_for @user, :url => skills_url, :method => :put do |f| %>
+  <div class="field">
+    <%= f.check_box :skill_teaching %> <%= f.label :skill_teaching, "Teaching" %><br />
+    <%= f.check_box :skill_taing %> <%= f.label :skill_taing, "TAing" %><br />
+    <%= f.check_box :skill_coordinating %> <%= f.label :skill_coordinating, "Coordinating" %><br />
+    <%= f.check_box :skill_childcaring %> <%= f.label :skill_childcaring, "Childcaring" %><br />
+    <%= f.check_box :skill_writing %> <%= f.label :skill_writing, "Writing" %><br />
+    <%= f.check_box :skill_hacking %> <%= f.label :skill_hacking, "Hacking" %><br />
+    <%= f.check_box :skill_designing %> <%= f.label :skill_designing, "Designing" %><br />
+    <%= f.check_box :skill_evangelizing %> <%= f.label :skill_evangelizing, "Evangelizing" %><br />
+    <%= f.check_box :skill_mentoring %> <%= f.label :skill_mentoring, "Mentoring" %><br />
+    <%= f.check_box :skill_mac_os %> <%= f.label :skill_mac_os, "Mac OS X" %><br />
+    <%= f.check_box :skill_windows %> <%= f.label :skill_windows, "Windows" %><br />
+    <%= f.check_box :skill_linux %> <%= f.label :skill_linux, "Linux/Ubuntu" %><br />
+    <%= f.label :skill_other, "Other" %><%= f.text_field :skill_other %><br />
+  </div>
+
+  <div>
+    <%= f.submit "Submit" %>
+  </div>
+
+<% end %>

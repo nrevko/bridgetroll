@@ -19,6 +19,9 @@ Bridgetroll::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
+  match 'users/skills/edit' => 'skills#edit', :as => :edit_skills, :via => :get
+  match 'users/skills' => 'skills#update', :as => :skills, :via => :put
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

@@ -68,6 +68,8 @@ describe "existing user", :js => true do
 
       page.should have_content("Thanks for adding your skills")
 
+puts "User after submit: #{@user.inspect}"
+
       @user.skill_teaching.should be_true
       @user.skill_taing.should be_true
       @user.skill_coordinating.should be_true

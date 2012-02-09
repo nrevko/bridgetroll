@@ -1,3 +1,7 @@
+<% if user_signed_in? %>
+  <%= link_to "Add Your Skills", edit_skills_url(:current_user=>current_user) %>
+<% end %>
+
 <h1>Listing events</h1>
 
 <table>
