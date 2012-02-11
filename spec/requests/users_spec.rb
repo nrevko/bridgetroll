@@ -69,7 +69,8 @@ describe "existing user", :js => true do
       page.should have_content("Thanks for adding your skills")
 
       #after submitting user needs to be re-fetched:
-      #http://stackoverflow.com/users/login?returnurl=http%3A//stackoverflow.com/questions/5751835/devise-rspec-user-expectationshttp://stackoverflow.com/questions/5751835/devise-rspec-user-expectations      @user = User.find(@user.id)
+      #http://stackoverflow.com/questions/5751835/devise-rspec-user-expectations
+      @user = User.find(@user.id)
 
       @user.skill_teaching.should be_true
       @user.skill_taing.should be_true
