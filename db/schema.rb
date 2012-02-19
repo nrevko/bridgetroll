@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125043718) do
+ActiveRecord::Schema.define(:version => 20120219030419) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -48,11 +48,32 @@ ActiveRecord::Schema.define(:version => 20120125043718) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "skill_teaching"
+    t.boolean  "skill_taing"
+    t.boolean  "skill_coordinating"
+    t.boolean  "skill_childcaring"
+    t.boolean  "skill_writing"
+    t.boolean  "skill_hacking"
+    t.boolean  "skill_designing"
+    t.boolean  "skill_evangelizing"
+    t.boolean  "skill_mentoring"
+    t.boolean  "skill_mac_os"
+    t.boolean  "skill_windows"
+    t.boolean  "skill_linux"
+    t.string   "skill_other"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+
+  create_table "volunteer_rsvps", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.boolean  "attending"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
