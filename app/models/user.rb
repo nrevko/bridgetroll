@@ -10,4 +10,20 @@ class User < ActiveRecord::Base
 
   has_many :volunteer_rsvps
   has_many :events, :through => :volunteer_rsvps
+
+  def responded?(event)
+    volunteer_rsvps.find_by_event_id(event.id)
+  end
+
+  def volunteering?(event)
+    volunteer_rsvps.find_by_event_id(event.id).attending?
+  end
+
+  def volunteer!(event)
+    volunteer_rsvps.create!(:event_id=>event.id, :attending=>"true")
+  end
+
+  def unvolunteer!(event)
+    volunteer_rsvps.find_by_event_id(event.id).update_attribute(:attending, "false")
+  end
 end

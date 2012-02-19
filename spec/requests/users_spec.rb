@@ -29,7 +29,7 @@ describe "existing user", :js => true do
     page.should have_link("Sign Out")
   end
 
-  describe "skills" do
+  describe "when logged in" do
     before do
       visit new_user_session_path
 
@@ -40,49 +40,77 @@ describe "existing user", :js => true do
       wait_until{page.has_content?("Signed in successfully")}
     end
 
-    it "link to add skills should be present on the home page for logged in user" do
-      page.should have_link("Add Your Skills")
+    describe "skills" do
+
+      it "link to add skills should be present on the home page for logged in user" do
+        page.should have_link("Add Your Skills")
+      end
+
+      it "user should be able to add his/her skills" do
+        click_link "Add Your Skills"
+
+        page.should have_content("My Incredible Powers")
+
+        check "Teaching"
+        check "TAing"
+        check "Coordinating"
+        check "Childcaring"
+        check "Writing"
+        check "Hacking"
+        check "Designing"
+        page.should have_content("Evangelizing")
+        page.should have_content("Mentoring")
+        page.should have_content("Mac OS X")
+        page.should have_content("Windows")
+        page.should have_content("Linux/Ubuntu")
+
+        fill_in "Other", :with => "Speaking Spanish"
+
+        click_button "Submit"
+
+        page.should have_content("Thanks for adding your skills")
+
+        #after submitting user needs to be re-fetched:
+        #http://stackoverflow.com/questions/5751835/devise-rspec-user-expectations
+        @user = User.find(@user.id)
+
+        @user.skill_teaching.should be_true
+        @user.skill_taing.should be_true
+        @user.skill_coordinating.should be_true
+        @user.skill_childcaring.should be_true
+        @user.skill_writing.should be_true
+        @user.skill_hacking.should be_true
+        @user.skill_designing.should be_true
+        @user.skill_evangelizing.should be_false
+        @user.skill_mentoring.should be_false
+        @user.skill_other.should == "Speaking Spanish"
+
+      end
     end
 
-    it "user should be able to add his/her skills" do
-      click_link "Add Your Skills"
+    describe "volunteering" do
+      before(:each) do
+        @event = Factory(:event)
+      end
 
-      page.should have_content("My Incredible Powers")
+      it "should allow to volunteer from the list of events" do
+        click_button("Volunteer!")
 
-      check "Teaching"
-      check "TAing"
-      check "Coordinating"
-      check "Childcaring"
-      check "Writing"
-      check "Hacking"
-      check "Designing"
-      page.should have_content("Evangelizing")
-      page.should have_content("Mentoring")
-      page.should have_content("Mac OS X")
-      page.should have_content("Windows")
-      page.should have_content("Linux/Ubuntu")
+        page.should have_content("Thanks for volunteering!")
+        page.should have_content("Attending!")
+      end
 
-      fill_in "Other", :with => "Speaking Spanish"
+      it "should volunteer for the viewed event" do
+        click_link @event.title
 
-      click_button "Submit"
+        click_button("Volunteer!")
 
-      page.should have_content("Thanks for adding your skills")
+        page.should have_content("Thanks for volunteering!")
+        page.should have_button("I can't make it")
 
-      #after submitting user needs to be re-fetched:
-      #http://stackoverflow.com/questions/5751835/devise-rspec-user-expectations
-      @user = User.find(@user.id)
-
-      @user.skill_teaching.should be_true
-      @user.skill_taing.should be_true
-      @user.skill_coordinating.should be_true
-      @user.skill_childcaring.should be_true
-      @user.skill_writing.should be_true
-      @user.skill_hacking.should be_true
-      @user.skill_designing.should be_true
-      @user.skill_evangelizing.should be_false
-      @user.skill_mentoring.should be_false
-      @user.skill_other.should == "Speaking Spanish"
-
+      end
     end
+
   end
+
 end
