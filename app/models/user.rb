@@ -20,7 +20,11 @@ class User < ActiveRecord::Base
   end
 
   def volunteer!(event)
-    volunteer_rsvps.create!(:event_id=>event.id, :attending=>"true")
+    if volunteer_rsvps.find_by_event_id(event.id)
+      volunteer_rsvps.find_by_event_id(event.id).update_attribute(:attending, "true")
+    else
+      volunteer_rsvps.create!(:event_id=>event.id, :attending=>"true")
+    end
   end
 
   def unvolunteer!(event)

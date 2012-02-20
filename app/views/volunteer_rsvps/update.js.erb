@@ -1,0 +1,6 @@
+$("p.notice").text("Your response was updated!").fadeIn('fast', function(){
+  $(this).fadeOut('slow');
+});
+
+$(".volunteering_decision_yes_<%= @event.id %>").hide();
+$(".volunteering_decision_no_<%= @event.id %>").show();

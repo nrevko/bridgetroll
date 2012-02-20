@@ -1,0 +1,5 @@
+$("p.notice").text("Thanks for volunteering!").fadeIn('fast', function(){
+  $(this).fadeOut('slow');
+});
+$(".volunteering_decision_yes_<%= @event.id %>").show();
+$(".volunteering_decision_no_<%= @event.id %>").hide();

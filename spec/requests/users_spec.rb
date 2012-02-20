@@ -91,6 +91,7 @@ describe "existing user", :js => true do
     describe "volunteering" do
       before(:each) do
         @event = Factory(:event)
+        visit events_path
       end
 
       it "should allow to volunteer from the list of events" do
@@ -106,8 +107,19 @@ describe "existing user", :js => true do
         click_button("Volunteer!")
 
         page.should have_content("Thanks for volunteering!")
-        page.should have_button("I can't make it")
+        page.should have_link("I can't make it")
 
+      end
+
+      it "should allow to un-volunteer" do
+        click_link @event.title
+
+        click_button("Volunteer!")
+
+        page.should have_link("I can't make it")
+
+        click_link("I can't make it")
+        page.should have_content("Your response was updated")
       end
     end
 

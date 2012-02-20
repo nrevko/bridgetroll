@@ -1,3 +1,17 @@
+<% if user_signed_in? %>
+  <div class="volunteering_decision_yes_<%= @event.id %>" style=<%= display_if(current_user.responded?(@event) && current_user.volunteering?(@event)) %>>
+
+    Attending!
+    <%= link_to "I can't make it",
+                volunteer_rsvp_path({:event_id=>@event.id, :attending=>"false"}),
+                :method=>:put, :remote=>true %>
+  </div>
+  <div class="volunteering_decision_no_<%= @event.id %>" style=<%= display_if(!(current_user.responded?(@event) && current_user.volunteering?(@event))) %>>
+
+    <%= render 'volunteer_rsvps/form', {:user=>current_user, :event=>@event} %>
+
+  </div>
+<% end %>
 <div>
   <b>Title:</b>
   <%= @event.title %> on <%= @event.date %>

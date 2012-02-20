@@ -5,19 +5,22 @@
     <th>Title</th>
     <th>Date</th>
     <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @events.each do |event| %>
   <tr>
     <td><%= link_to event.title, event %></td>
     <td><%= event.date %></td>
-    <td>
-      
-    </td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
+    <% if user_signed_in? %>
+      <td class="volunteering_decision_yes_<%= event.id %>" style=<%=display_if(current_user.responded?(event) && current_user.volunteering?(event))%>>
+          Attending!
+      </td>
+      <td class="volunteering_decision_no_<%= event.id %>" style=<%=display_if(!(current_user.responded?(event) && current_user.volunteering?(event)))%>>
+          <%= render 'volunteer_rsvps/form', {:event=>event} %>
+      </td>
+    <% end %>
+
   </tr>
 <% end %>
 </table>

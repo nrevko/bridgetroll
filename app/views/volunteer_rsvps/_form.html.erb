@@ -1,0 +1,6 @@
+<%= form_for current_user.volunteer_rsvps.build(:event_id=>event.id), :remote=>true do |f| %>
+  <div> <%= f.hidden_field :event_id %></div>
+  <div> <%= f.hidden_field :attending %></div>
+
+  <div class="actions"><%= f.submit "Volunteer!" %></div>
+<% end %>
